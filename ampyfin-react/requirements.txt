@@ -1,0 +1,15 @@
+polygon-api-client
+pymongo
+certifi
+alpaca-py
+yfinance
+scipy
+pandas
+cython
+fastapi
+uvicorn
+motor
+python-dotenv
+stats
+PyWavelets
+ripser

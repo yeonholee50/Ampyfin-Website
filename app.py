@@ -24,6 +24,7 @@ MONGO_DB_PASS = os.getenv("MONGO_DB_PASS")
 API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
 
+from config import MONGO_DB_USER, MONGO_DB_PASS, API_KEY, API_SECRET
 """
 comment out when uploading for change
 
@@ -163,7 +164,7 @@ class TickerResult(BaseModel):
 async def run_algorithm_on_ticker(ticker: str):
     decisions_and_quantities = []
     strategy_to_coefficient = {}
-    
+    ticker = ticker.capitalize()
     try:
         for strategy in strategies:
             rank_doc = await rankings_collection.find({'strategy': strategy.__name__}).to_list(length = 1)

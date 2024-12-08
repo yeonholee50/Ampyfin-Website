@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y build-essential wget && \
     cd ta-lib && \
     ./configure && \
     make && \
-    sudo make install && \
+    make install && \
     cd .. 
 
 # Install Python dependencies from requirements.txt

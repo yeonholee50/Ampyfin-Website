@@ -95,7 +95,7 @@ async def get_holdings():
 async def get_rankings():
     rankings = []
     try:
-        rankings_doc = await rankings_collection.find({}).sort("rank", 1).to_list(length=100)
+        rankings_doc = await rankings_collection.find({}).sort("rank", 1).to_list(length=200)
         for ranking_doc in rankings_doc:
             ranking = {
                 "id": str(ranking_doc["_id"]),

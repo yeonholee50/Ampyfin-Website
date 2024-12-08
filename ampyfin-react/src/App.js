@@ -3,7 +3,7 @@ import axios from 'axios';
 import './App.css';
 import { Helmet } from 'react-helmet';
 
-const API_URL = "https://ampyfin-api-app.onrender.com";
+const API_URL = "https://ampyfintrading.onrender.com";
 
 function App() {
   const [activeTab, setActiveTab] = useState('how-it-works');

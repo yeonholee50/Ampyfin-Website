@@ -172,6 +172,7 @@ function App() {
 
       </Helmet>
       <header className="App-header">
+        
         <h1>AmpyFin</h1>
         <nav>
           <ul>
@@ -185,6 +186,7 @@ function App() {
           <span className="live-dot"></span>
           <span>LIVE</span>
         </div>
+        
       </header>
       <main>{renderTabContent()}</main>
       <footer className="App-footer">

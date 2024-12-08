@@ -5,12 +5,12 @@ from pydantic import BaseModel
 from typing import List, Dict, Optional
 from bson import ObjectId
 from fastapi.middleware.cors import CORSMiddleware
-from strategies.trading_strategies_v1 import get_historical_data
 from dotenv import load_dotenv
 from statistics import median
 from alpaca.data.historical.stock import StockHistoricalDataClient
 # Custom helper methods
 from helper_files.client_helper import strategies, get_latest_price
+from strategies.talib_indicators import *
 
 load_dotenv()
 # FastAPI app initialization
@@ -18,20 +18,19 @@ app = FastAPI()
 
 # MongoDB credentials from environment variables (imported from config)
 
-
+"""
 MONGO_DB_USER = os.getenv("MONGO_DB_USER")
 MONGO_DB_PASS = os.getenv("MONGO_DB_PASS")
 API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
-
-"""
-comment out when uploading for change
-
-from config import MONGO_DB_USER, MONGO_DB_PASS, API_KEY, API_SECRET
+MONGODB_URL = os.getenv("MONGODB_URL")
 """
 
+from config import MONGO_DB_PASS, MONGO_DB_USER, API_KEY, API_SECRET, mongo_url
+MONGODB_URL = mongo_url
 
-MONGODB_URL = f"mongodb+srv://{MONGO_DB_USER}:{MONGO_DB_PASS}@cluster0.0qoxq.mongodb.net/?retryWrites=true&w=majority"
+
+
 
 # Initialize MongoDB client
 client = AsyncIOMotorClient(MONGODB_URL)
@@ -40,7 +39,7 @@ data_client = StockHistoricalDataClient(API_KEY, API_SECRET)
 try:
     db = client.get_database("trades")
     holdings_collection = db.get_collection("assets_quantities")
-    portfolio_value_collection = db.get_collection("portfolio_value")
+    portfolio_value_collection = db.get_collection("portfolio_values")
 
     db = client.get_database("trading_simulator")
     rankings_collection = db.get_collection("rank")
@@ -114,8 +113,8 @@ async def get_rankings():
 async def get_portfolio_percentage():
     try:
         # Fetch all documents from the portfolio_value collection
-        portfolio = await portfolio_value_collection.find({}).to_list(length=3)
-
+        portfolio = await portfolio_value_collection.find({}).to_list(length=None)
+        
         # Initialize dictionary to store values
         percentage_data = {
             "portfolio_percentage": None,
@@ -123,21 +122,17 @@ async def get_portfolio_percentage():
             "spy_percentage": None,
         }
 
-        # Extract percentage values
+        # Extract percentage values based on the 'name' field
         for entry in portfolio:
-            if "portfolio_percentage" in entry:
-                percentage_data["portfolio_percentage"] = entry["portfolio_percentage"]
-            elif "ndaq_percentage" in entry:
-                percentage_data["ndaq_percentage"] = entry["ndaq_percentage"]
-            elif "spy_percentage" in entry:
-                percentage_data["spy_percentage"] = entry["spy_percentage"]
+            if entry.get("name") == "portfolio_percentage":
+                percentage_data["portfolio_percentage"] = entry.get("portfolio_value")
+            elif entry.get("name") == "ndaq_percentage":
+                percentage_data["ndaq_percentage"] = entry.get("portfolio_value")
+            elif entry.get("name") == "spy_percentage":
+                percentage_data["spy_percentage"] = entry.get("portfolio_value")
 
         # Check if all values are found
-        if (
-            percentage_data["portfolio_percentage"] is None
-            or percentage_data["ndaq_percentage"] is None
-            or percentage_data["spy_percentage"] is None
-        ):
+        if None in percentage_data.values():
             raise HTTPException(status_code=404, detail="One or more percentages not found")
 
         return percentage_data
@@ -145,6 +140,7 @@ async def get_portfolio_percentage():
     except Exception as e:
         print(f"Error fetching portfolio percentage: {e}")
         raise HTTPException(status_code=500, detail="Failed to fetch portfolio percentages")
+
 
 # Pydantic model for Ticker output (Result of algorithm)
 class TickerResult(BaseModel):
@@ -182,16 +178,13 @@ async def run_algorithm_on_ticker(ticker: str):
         
         
         current_price = get_latest_price(ticker)
-        historical_data = get_historical_data(ticker, data_client)
+        historical_data = get_data(ticker)
         buying_power = 50000.00
         portfolio_qty = 5
         portfolio_value = 75000.00
-        
         for strategy in strategies:
             try:
-                decision, quantity, _ = strategy(
-                    ticker, current_price, historical_data, buying_power, portfolio_qty, portfolio_value
-                )
+                decision, quantity = simulate_strategy(strategy, ticker, current_price, historical_data, buying_power, portfolio_qty, portfolio_value)
                 weight = strategy_to_coefficient[strategy.__name__]
             except Exception as e:
                 print(f"Error running strategy {strategy.__name__}: {e}")
@@ -259,14 +252,14 @@ async def get_ticker_result(ticker: str):
             }
 
         
-        historical_data = get_historical_data(ticker, data_client)
+        historical_data = get_data(ticker)
         buying_power = 50000.00
         portfolio_qty = 5
         portfolio_value = 75000.00
         
         for strategy in strategies:
             try:
-                decision, quantity, _ = strategy(
+                decision, quantity = simulate_strategy(strategy,
                     ticker, current_price, historical_data, buying_power, portfolio_qty, portfolio_value
                 )
                 weight = strategy_to_coefficient[strategy.__name__]

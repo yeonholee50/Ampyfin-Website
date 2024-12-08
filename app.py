@@ -18,17 +18,16 @@ app = FastAPI()
 
 # MongoDB credentials from environment variables (imported from config)
 
-"""
 MONGO_DB_USER = os.getenv("MONGO_DB_USER")
 MONGO_DB_PASS = os.getenv("MONGO_DB_PASS")
 API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
 MONGODB_URL = os.getenv("MONGODB_URL")
-"""
 
+"""
 from config import MONGO_DB_PASS, MONGO_DB_USER, API_KEY, API_SECRET, mongo_url
 MONGODB_URL = mongo_url
-
+"""
 
 
 

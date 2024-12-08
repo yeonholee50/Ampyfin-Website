@@ -1,4 +1,4 @@
-TA-Lib
+./wheels/ta_lib-0.5.1-cp312-cp312-win_amd64.whl
 polygon-api-client
 pymongo
 certifi

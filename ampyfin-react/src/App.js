@@ -84,14 +84,14 @@ function App() {
           <div className="content-section">
             <h2>How AmpyFin Works</h2>
             <p>
-              AmpyFin is a cutting-edge, <strong>AI-powered trading bot</strong> designed specifically for navigating the complexities of the <strong>NASDAQ-100</strong>. By utilizing a machine learning strategy called <strong>Supervised Ensembled Learning</strong>, AmpyFin leverages a range of diverse trading strategies, dynamically ranking each algorithm based on performance and current market conditions. 
+              AmpyFin is a cutting-edge, <strong>AI-powered trading bot</strong> designed specifically for navigating the complexities of the <strong>NASDAQ-100</strong>. By utilizing a machine learning strategy called <strong>Supervised Ensemble Learning</strong>, AmpyFin leverages a range of diverse strategies, dynamically ranking each indicator from <a href="https://ta-lib.github.io/ta-lib-python/">Ta-Lib</a> based on performance and current market conditions. 
               This allows the bot to intelligently allocate its resources and optimize trades, ensuring both high efficiency and adaptability in real-time.
             </p>
             <p>
-              At the heart of AmpyFin is its <strong>dynamic ranking system</strong>, which adjusts the influence of each algorithm according to its recent success rates. This dynamic system ensures that AmpyFin consistently prioritizes the most effective strategies while minimizing risk exposure. All algorithms are rigorously tested in simulated environments to ensure that only the best-performing models contribute to real-time trading decisions.
+              At the heart of AmpyFin is its <strong>dynamic ranking system</strong>, which adjusts the influence of each indicator according to its recent success rates. This dynamic system ensures that AmpyFin consistently prioritizes the most effective strategies while minimizing risk exposure. All algorithms are rigorously tested in simulated environments to ensure that only the best-performing models contribute to real-time trading decisions.
             </p>
             <p>
-              With an ever-adapting approach to market conditions, AmpyFin ensures optimal risk management, continually evaluating and adjusting its strategies to remain ahead in a volatile market environment. The system seamlessly combines fundamental trading strategies like <strong>Mean Reversion</strong> and <strong> Momentum</strong> with more advanced AI-driven methods like <strong>Entropy Flow Strategy</strong>, ensuring that every trade is backed by the most robust analysis available.
+              With an ever-adapting approach to market conditions, AmpyFin ensures optimal risk management, continually evaluating and adjusting its strategies to remain ahead in a volatile market environment. The system seamlessly combines fundamental trading strategies like <strong>Momentum</strong>, <strong> Price Transform</strong>, and <strong>Pattern Recognition</strong>, ensuring that every trade is backed by the most robust analysis available.
             </p>
           </div>
         );
@@ -119,6 +119,7 @@ function App() {
           return (
             <div className="content-section">
               <h2>Test AmpyFin</h2>
+              
               <form
                 onSubmit={(e) => {
                   e.preventDefault();

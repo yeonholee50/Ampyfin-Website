@@ -216,7 +216,7 @@ async def get_ticker_result(ticker: str):
     """
     Retrieves the result of the algorithm for a specific ticker.
     """
-    
+    ticker = ticker.capitalize()
     decisions_and_quantities = []
     strategy_to_coefficient = {}
     

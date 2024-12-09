@@ -84,7 +84,7 @@ function App() {
           <div className="content-section">
             <h2>How AmpyFin Works</h2>
             <p>
-              AmpyFin is a cutting-edge, <strong>AI-powered trading bot</strong> designed specifically for navigating the complexities of the <strong>NASDAQ-100</strong>. By utilizing a machine learning strategy called <strong>Supervised Ensemble Learning</strong>, AmpyFin leverages a range of diverse strategies, dynamically ranking each indicator from <a href="https://ta-lib.github.io/ta-lib-python/">Ta-Lib</a> based on performance and current market conditions. 
+              AmpyFin is a cutting-edge, <strong>AI-powered trading bot</strong> designed specifically for navigating the complexities of the <strong>NASDAQ-100</strong>. By utilizing a machine learning strategy called <strong>Supervised Ensemble Learning</strong>, AmpyFin leverages a range of diverse strategies, dynamically ranking each indicator from <a href="https://ta-lib.github.io/ta-lib-python/">TA-Lib</a> based on performance and current market conditions. 
               This allows the bot to intelligently allocate its resources and optimize trades, ensuring both high efficiency and adaptability in real-time.
             </p>
             <p>

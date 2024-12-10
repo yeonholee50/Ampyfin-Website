@@ -94,7 +94,7 @@ function App() {
               With an ever-adapting approach to market conditions, AmpyFin ensures optimal risk management, continually evaluating and adjusting its strategies to remain ahead in a volatile market environment. The system seamlessly combines fundamental trading strategies like <strong>Momentum</strong>, <strong> Price Transform</strong>, and <strong>Pattern Recognition</strong>, ensuring that every trade is backed by the most robust analysis available.
             </p>
 
-            <p> We are currently constantly looking for more indicators to add to our portfolio as well as other AI driven approaches to improve our performance. The link to the code base can be found here: <a href="https://github.com/yeonholee50/AmpyFin">Ampyfin Codebase</a>.</p>
+            
           </div>
         );
       case 'portfolio':

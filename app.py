@@ -309,9 +309,9 @@ def weighted_majority_decision_and_median_quantity(decisions_and_quantities):
         elif decision == 'hold':
             hold_weight += weight
 
-    if buy_weight > sell_weight:
+    if buy_weight > sell_weight and buy_weight > hold_weight:
         return 'buy', median(weighted_buy_quantities)//1 if weighted_buy_quantities else 0, buy_weight, sell_weight, hold_weight
-    elif sell_weight > buy_weight:
+    elif sell_weight > buy_weight and sell_weight > hold_weight:
         return 'sell', median(weighted_sell_quantities)//1 if weighted_sell_quantities else 0, buy_weight, sell_weight, hold_weight
     else:
         return 'hold', 0, buy_weight, sell_weight, hold_weight

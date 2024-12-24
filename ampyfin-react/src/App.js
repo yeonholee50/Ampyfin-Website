@@ -121,7 +121,7 @@ function App() {
           return (
             <div className="content-section">
               <h2>Test AmpyFin</h2>
-              
+              <p>Enter a ticker symbol to process:</p>
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -160,6 +160,9 @@ function App() {
               ) : (
                 <p>No data available. Please enter a valid ticker.</p>
               )}
+
+              <p>Please note that Ampyfin is currently experiencing maintenance. Results of the test may be inaccurate until January 1, 2025. We apologize for any inconvenience. Benchmark, indicator rankings, and portfolio positions are not affected by this issue.</p>
+
             </div>
           );
         

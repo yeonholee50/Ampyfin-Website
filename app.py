@@ -25,6 +25,8 @@ API_KEY = os.getenv("API_KEY")
 API_SECRET = os.getenv("API_SECRET")
 MONGODB_URL = os.getenv("MONGODB_URL")
 
+
+
 """
 from config import MONGO_DB_PASS, MONGO_DB_USER, API_KEY, API_SECRET, mongo_url
 MONGODB_URL = mongo_url
@@ -262,13 +264,15 @@ async def get_ticker_result(ticker: str):
         
         buying_power = 50000.00
         portfolio_qty = 5
-        portfolio_value = 75000.00
+        portfolio_value = 1000000.00
         mongo_client = MongoClient(MONGODB_URL)
         for strategy in strategies:
             historical_data = None
             while historical_data is None:
                 try:
-                    indicator_period = await indicators_collection.find_one({"indicator": strategy.__name__}).to_list(length = 1)[0].get("ideal_period", "1y")  
+                    
+                    indicator_period = await indicators_collection.find({'indicator': strategy.__name__}).to_list(length = 1)
+                    indicator_period = indicator_period[0].get("ideal_period", "1y")  
                     historical_data = get_data(ticker, mongo_client,indicator_period)
                 except Exception as e:
                     print(f"Error fetching historical data for {ticker}: {e}")

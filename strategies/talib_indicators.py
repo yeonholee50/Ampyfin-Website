@@ -1,13 +1,35 @@
 import yfinance as yf  
 import talib as ta 
 import numpy as np
-
-def get_data(ticker, period='1y'): 
+import pandas as pd
+def get_data(ticker, mongo_client, period='1y'): 
 
    """Retrieve historical data for a given ticker."""  
+   data = None
+   while data is None:
+      
+      try:
+         db = mongo_client.HistoricalDatabase
+         collection = db.HistoricalDatabase
+         
+         data = collection.find_one({"ticker": ticker, "period": period})
+         
+         if data:
+            df = pd.DataFrame(data['data'])
+            df['Date'] = pd.to_datetime(df['Date'])
+            df.set_index('Date', inplace=True)
+            
+            return df
+         else:
+
+            ticker_obj = yf.Ticker(ticker)
+            data = ticker_obj.history(period=period)
+            
+            
+            return data
+      except Exception as e:
+         print(f"Error fetching data for {ticker}: {e}")
    
-   ticker = yf.Ticker(ticker)
-   data = ticker.history(period=period)
    return data  
   
 def simulate_strategy(strategy, ticker, current_price, historical_data, account_cash, portfolio_qty, total_portfolio_value):

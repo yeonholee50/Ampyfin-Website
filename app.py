@@ -11,6 +11,7 @@ from alpaca.data.historical.stock import StockHistoricalDataClient
 # Custom helper methods
 from helper_files.client_helper import strategies, get_latest_price
 from strategies.talib_indicators import *
+from pymongo import MongoClient
 
 load_dotenv()
 # FastAPI app initialization
@@ -40,9 +41,16 @@ try:
     holdings_collection = db.get_collection("assets_quantities")
     portfolio_value_collection = db.get_collection("portfolio_values")
 
+    db = client.get_database("IndicatorsDatabase")
+    indicators_collection = db.get_collection("Indicators")
+
+
+
     db = client.get_database("trading_simulator")
     rankings_collection = db.get_collection("rank")
     rank_to_coefficent_collection = db.get_collection("rank_to_coefficient")
+
+    
     print("MongoDB collections are connected and ready.")
 except Exception as e:
     print(f"Error connecting to MongoDB: {e}")
@@ -251,12 +259,19 @@ async def get_ticker_result(ticker: str):
             }
 
         
-        historical_data = get_data(ticker)
+        
         buying_power = 50000.00
         portfolio_qty = 5
         portfolio_value = 75000.00
-        
+        mongo_client = MongoClient(MONGODB_URL)
         for strategy in strategies:
+            historical_data = None
+            while historical_data is None:
+                try:
+                    indicator_period = indicators_collection.find_one({"indicator": strategy.__name__}).to_list(length = 1)[0].get("ideal_period", "1y")  
+                    historical_data = get_data(ticker, mongo_client,indicator_period)
+                except Exception as e:
+                    print(f"Error fetching historical data for {ticker}: {e}")
             try:
                 decision, quantity = simulate_strategy(strategy,
                     ticker, current_price, historical_data, buying_power, portfolio_qty, portfolio_value

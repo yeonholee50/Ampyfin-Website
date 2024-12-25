@@ -268,7 +268,7 @@ async def get_ticker_result(ticker: str):
             historical_data = None
             while historical_data is None:
                 try:
-                    indicator_period = indicators_collection.find_one({"indicator": strategy.__name__}).to_list(length = 1)[0].get("ideal_period", "1y")  
+                    indicator_period = await indicators_collection.find_one({"indicator": strategy.__name__}).to_list(length = 1)[0].get("ideal_period", "1y")  
                     historical_data = get_data(ticker, mongo_client,indicator_period)
                 except Exception as e:
                     print(f"Error fetching historical data for {ticker}: {e}")

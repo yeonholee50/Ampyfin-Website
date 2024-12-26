@@ -121,6 +121,8 @@ function App() {
           return (
             <div className="content-section">
               <h2>Test AmpyFin</h2>
+              <p><b>Note: This feature is what the trained AmpyFin bot recommends in terms of trading short - medium term.</b></p>
+              <div></div>
               <p>Enter a ticker symbol to process:</p>
               <form
                 onSubmit={(e) => {

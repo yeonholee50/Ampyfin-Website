@@ -95,7 +95,7 @@ function App() {
             </p>
 
 
-            <p style="font-color: red;">
+            <p>
               We are currently undergoing maintenance and upgrades. We apologize for any inconvenience. Please check back later for updated information. We expect to have the site back up and running soon.
 
             </p>

@@ -94,6 +94,11 @@ function App() {
               With an ever-adapting approach to market conditions, AmpyFin ensures optimal risk management, continually evaluating and adjusting its strategies to remain ahead in a volatile market environment. The system seamlessly combines fundamental trading strategies like <strong>Momentum</strong>, <strong> Price Transform</strong>, and <strong>Pattern Recognition</strong>, ensuring that every trade is backed by the most robust analysis available.
             </p>
 
+
+            <p style="font-color: red;">
+              We are currently undergoing maintenance and upgrades. We apologize for any inconvenience. Please check back later for updated information. We expect to have the site back up and running soon.
+
+            </p>
             
           </div>
         );

@@ -48,9 +48,6 @@ function App() {
     }
   };
 
-  
-  
-
   const fetchAmpyfinRecommendation = async (ticker) => {
     setIsLoading(true);  // Set loading to true when starting the request
     try {
@@ -64,17 +61,10 @@ function App() {
     }
   };
 
-
   useEffect(() => {
     fetchPortfolioPercentage();
     fetchHoldings();
     fetchRankings();
-    const interval = setInterval(() => {
-      fetchPortfolioPercentage();
-      fetchHoldings();
-      fetchRankings();
-    }, 60000);
-    return () => clearInterval(interval);
   }, []);
 
   const renderTabContent = () => {
@@ -93,13 +83,9 @@ function App() {
             <p>
               With an ever-adapting approach to market conditions, AmpyFin ensures optimal risk management, continually evaluating and adjusting its strategies to remain ahead in a volatile market environment. The system seamlessly combines fundamental trading strategies like <strong>Momentum</strong>, <strong> Price Transform</strong>, and <strong>Pattern Recognition</strong>, ensuring that every trade is backed by the most robust analysis available.
             </p>
-
-
             <p>
               We are currently undergoing maintenance and upgrades. We apologize for any inconvenience. Please check back later for updated information. We expect to have the site back up and running soon.
-
             </p>
-            
           </div>
         );
       case 'portfolio':
@@ -122,57 +108,53 @@ function App() {
             />
           </div>
         );
-        case 'test-ampyfin':
-          return (
-            <div className="content-section">
-              <h2>Test AmpyFin</h2>
-              <p><b>Note: This feature is what the trained AmpyFin bot recommends in terms of trading short - medium term.</b></p>
-              <div></div>
-              <p>Enter a ticker symbol to process:</p>
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  fetchAmpyfinRecommendation(ticker);
-                }}
-              >
-                <input 
-                  type="text" 
-                  value={ticker} 
-                  onChange={(e) => setTicker(e.target.value)} 
-                  placeholder="Enter Ticker" 
-                  required 
-                />
-                <button type="submit">Process</button>
-              </form>
-        
-              {isLoading ? (
-                <div className="loading-message">
-                  <p>Processing...</p>
-                  {/* You can also use a spinner here */}
-                  <div className="spinner"></div>
-                </div>
-              ) : ampyfinResult ? (
-                <div className="ampyfin-result">
-                  <h3>{ampyfinResult.ticker}</h3>
-                  <p 
-                    className={`decision ${ampyfinResult.decision}`}
-                  >
-                    Decision: <strong>{ampyfinResult.decision}</strong> @ current price of ${ampyfinResult.current_price}
-                  </p>
-                  
-                  <p>Buy Weight: {ampyfinResult.buy_weight}</p>
-                  <p>Sell Weight: {ampyfinResult.sell_weight}</p>
-                  <p>Hold Weight: {ampyfinResult.hold_weight}</p>
-                </div>
-              ) : (
-                <p>No data available. Please enter a valid ticker.</p>
-              )}
-
-              
-
-            </div>
-          );
-        
+      case 'test-ampyfin':
+        return (
+          <div className="content-section">
+            <h2>Test AmpyFin</h2>
+            <p><b>Note: This feature is what the trained AmpyFin bot recommends in terms of trading short - medium term.</b></p>
+            <div></div>
+            <p>Enter a ticker symbol to process:</p>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                fetchAmpyfinRecommendation(ticker);
+              }}
+            >
+              <input 
+                type="text" 
+                value={ticker} 
+                onChange={(e) => setTicker(e.target.value)} 
+                placeholder="Enter Ticker" 
+                required 
+              />
+              <button type="submit">Process</button>
+            </form>
+      
+            {isLoading ? (
+              <div className="loading-message">
+                <p>Processing...</p>
+                {/* You can also use a spinner here */}
+                <div className="spinner"></div>
+              </div>
+            ) : ampyfinResult ? (
+              <div className="ampyfin-result">
+                <h3>{ampyfinResult.ticker}</h3>
+                <p 
+                  className={`decision ${ampyfinResult.decision}`}
+                >
+                  Decision: <strong>{ampyfinResult.decision}</strong> @ current price of ${ampyfinResult.current_price}
+                </p>
+                
+                <p>Buy Weight: {ampyfinResult.buy_weight}</p>
+                <p>Sell Weight: {ampyfinResult.sell_weight}</p>
+                <p>Hold Weight: {ampyfinResult.hold_weight}</p>
+              </div>
+            ) : (
+              <p>No data available. Please enter a valid ticker.</p>
+            )}
+          </div>
+        );
       default:
         return null;
     }
@@ -182,10 +164,8 @@ function App() {
     <div className="App">
       <Helmet>
         <title>AmpyFin</title>
-
       </Helmet>
       <header className="App-header">
-        
         <h1>AmpyFin</h1>
         <nav>
           <ul>
@@ -199,7 +179,6 @@ function App() {
           <span className="live-dot"></span>
           <span>LIVE</span>
         </div>
-        
       </header>
       <main>{renderTabContent()}</main>
       <footer className="App-footer">

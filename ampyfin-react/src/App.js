@@ -89,6 +89,7 @@ function App() {
       case 'portfolio':
         return (
           <div className="content-section">
+            <p>Please note that due to high volumes of request, retrieving the data may take up to a minute. Thank you for your understanding.</p>
             <h2>Live Portfolio</h2>
             <HoldingsTable holdings={holdings} />
             <h2>Live Rankings</h2>
@@ -98,6 +99,7 @@ function App() {
       case 'benchmark':
         return (
           <div className="content-section">
+            <p>Please note that due to high volumes of request, retrieving the data may take up to a minute. Thank you for your understanding.</p>
             <h2>Live Performance Benchmarked Against Major ETFs</h2>
             <BenchmarkSection 
               portfolioPercentage={portfolioPercentage} 

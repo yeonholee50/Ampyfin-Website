@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y build-essential wget && \
     make && \
     make install && \
     cd .. 
+    ldconfig && \
 
 # Install Python dependencies from requirements.txt
 RUN pip install -r requirements.txt

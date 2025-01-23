@@ -183,7 +183,7 @@ function App() {
       <main>{renderTabContent()}</main>
       <footer className="App-footer">
         <p className="last-updated">Last Updated: {lastUpdated}</p>
-        <p>&copy; 2024 AmpyFin Trading Bot</p>
+        <p>&copy; {new Date().getFullYear()} AmpyFin Trading Bot</p>
       </footer>
     </div>
   );
@@ -242,15 +242,15 @@ function BenchmarkSection({ portfolioPercentage, ndaqPercentage, spyPercentage }
     <div className="benchmark-section">
       <div className={`portfolio-percentage ${portfolioPercentage > 0 ? 'green' : 'red'}`}>
         AmpyFin: {formatPercentage(portfolioPercentage)}
-        <p className="live-since">Total Percentage since January 3, 2024, at 9:30 AM</p>
+        <p className="live-since">Total Percentage since January 3, 2025, at 9:30 AM</p>
       </div>
       <div className={`portfolio-percentage ${ndaqPercentage > 0 ? 'green' : 'red'}`}>
         QQQ: {formatPercentage(ndaqPercentage)}
-        <p className="live-since">Total Percentage since January 3, 2024, at 9:30 AM</p>
+        <p className="live-since">Total Percentage since January 3, 2025, at 9:30 AM</p>
       </div>
       <div className={`portfolio-percentage ${spyPercentage > 0 ? 'green' : 'red'}`}>
         SPY: {formatPercentage(spyPercentage)}
-        <p className="live-since">Total Percentage since January 3, 2024, at 9:30 AM</p>
+        <p className="live-since">Total Percentage since January 3, 2025, at 9:30 AM</p>
       </div>
     </div>
   );

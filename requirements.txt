@@ -1,4 +1,4 @@
-TA-Lib
+TA-Lib --no-binary :all:
 polygon-api-client
 pymongo
 certifi

@@ -22,8 +22,7 @@ RUN apt-get update && apt-get install -y build-essential wget && \
     apt-get clean
 
 # Install Python dependencies from requirements.txt
-RUN pip install --upgrade pip && \
-    pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Expose port 10000 for the application
 EXPOSE 10000

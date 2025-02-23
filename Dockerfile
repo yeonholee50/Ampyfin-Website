@@ -16,6 +16,9 @@ RUN apt-get update && apt-get install -y build-essential wget && \
     make && \ 
     make install
 
+RUN ldconfig && \
+    ldconfig -p | grep ta_lib
+    
 RUN pip install --no-binary=:all: TA-Lib
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt

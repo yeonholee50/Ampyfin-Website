@@ -7,8 +7,10 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+RUN apt-get update && apt-get install -y build-essential wget
 RUN tar -xvf ta-lib-0.4.0-src.tar.gz
 WORKDIR /ta-lib
+RUN ./configure
 RUN make
 RUN make install
 RUN pip install --no-cache-dir TA-Lib

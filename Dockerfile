@@ -8,11 +8,16 @@ WORKDIR /app
 COPY . /app
 
 # Update pip and install system dependencies needed for TA-Lib
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    wget \
-    libta-lib0 \
-    libta-lib-dev
+RUN wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz && \
+    tar -xzf ta-lib-0.4.0-src.tar.gz && \
+    cd ta-lib && \
+    ./configure --prefix=/usr && \
+    make && \
+    sudo make install && \
+    pip install ta-lib && \
+    cd .. && \
+    rm -rf ta-lib/ ta-lib-0.4.0-src.tar.gz && \
+    source deactivate
 
 # Install Python dependencies from requirements.txt
 RUN pip install -r requirements.txt

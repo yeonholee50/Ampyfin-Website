@@ -1,4 +1,3 @@
-TA-Lib
 polygon-api-client
 pymongo
 certifi

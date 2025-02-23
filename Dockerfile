@@ -15,11 +15,15 @@ RUN apt-get update && apt-get install -y build-essential wget && \
     ./configure && \
     make && \
     make install && \
-    cd .. 
-    
+    cd .. && \
+    rm -rf ta-lib ta-lib-0.4.0-src.tar.gz && \
+    apt-get remove --purge -y wget && \
+    apt-get autoremove -y && \
+    apt-get clean
 
 # Install Python dependencies from requirements.txt
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install -r requirements.txt
 
 # Expose port 10000 for the application
 EXPOSE 10000

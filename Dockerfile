@@ -9,6 +9,8 @@ COPY . /app
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN  apt-get install build-essential
+
 RUN tar -xzf ta-lib-0.4.0-src.tar.gz \
     && cd ta-lib \
     && ./configure \

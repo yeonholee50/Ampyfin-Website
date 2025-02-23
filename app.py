@@ -305,7 +305,9 @@ async def get_ticker_result(ticker: str):
             except Exception as e:
                 print(f"Error running strategy {strategy.__name__}: {e}")
                 continue
-            decisions_and_quantities.append((decision, quantity, weight/10))
+            if decision == 'hold':
+                weight = weight/20
+            decisions_and_quantities.append((decision, quantity, weight))
 
         
         decision, median_qty, buy_weight, sell_weight, hold_weight = weighted_majority_decision_and_median_quantity(

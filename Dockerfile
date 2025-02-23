@@ -10,13 +10,11 @@ COPY . /app
 ENV LD_LIBRARY_PATH /usr/lib:/usr/local/lib
 
 RUN apt-get update && apt-get install -y build-essential wget && \
-    tar -xvf ta-lib-0.4.0-src.tar.gz && \
+    tar zxvf ta-lib-0.4.0-src.tar.gz && \
     cd ta-lib && \
     ./configure --prefix=/usr && \
     make && \ 
-    make install && \
-    pip install --no-cache-dir TA-Lib
-
+    make install
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Expose port 10000 for the application

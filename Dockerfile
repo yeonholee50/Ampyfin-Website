@@ -7,16 +7,17 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-RUN wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz && \
-    tar -xzf ta-lib-0.4.0-src.tar.gz && \
-    cd ta-lib && \
-    ./configure --prefix=/usr && \
-    make && \
-    sudo make install && \
-    pip install ta-lib && \
-    cd .. && \
-    rm -rf ta-lib/ ta-lib-0.4.0-src.tar.gz && \
-    source deactivate
+RUN ["/bin/bash", "-c", "source activate python2 && \
+wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz && \
+tar -xzf ta-lib-0.4.0-src.tar.gz && \
+cd ta-lib && \
+./configure --prefix=/usr && \
+make && \
+sudo make install && \
+pip install ta-lib && \
+cd .. && \
+rm -rf ta-lib/ ta-lib-0.4.0-src.tar.gz && \
+source deactivate"]
 
 # Install Python dependencies from requirements.txt
 RUN pip install -r requirements.txt

@@ -189,7 +189,7 @@ async def run_algorithm_on_ticker(ticker: str):
         current_price = get_latest_price(ticker)
         historical_data = get_data(ticker)
         buying_power = 1000000.00
-        portfolio_qty = 2
+        portfolio_qty = 0
         portfolio_value = 1200000.00
         for strategy in strategies:
             try:

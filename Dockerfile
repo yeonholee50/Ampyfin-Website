@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y build-essential wget && \
     ./configure --prefix=/usr && \
     make && \ 
     make install
+
+RUN pip install TA-Lib
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Expose port 10000 for the application

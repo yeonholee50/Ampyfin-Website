@@ -200,9 +200,21 @@ async def run_algorithm_on_ticker(ticker: str):
                 continue
             decisions_and_quantities.append((decision, quantity, weight))
         
+        portfolio_qty = 5
+        for strategy in strategies:
+            try:
+                decision, quantity = simulate_strategy(strategy, ticker, current_price, historical_data, buying_power, portfolio_qty, portfolio_value)
+                weight = strategy_to_coefficient[strategy.__name__]
+            except Exception as e:
+                print(f"Error running strategy {strategy.__name__}: {e}")
+                continue
+            decisions_and_quantities.append((decision, quantity, weight))
+
         decision, median_qty, buy_weight, sell_weight, hold_weight = weighted_majority_decision_and_median_quantity(
             decisions_and_quantities
         )
+        
+
         
         # Construct result
         result = {
@@ -263,7 +275,7 @@ async def get_ticker_result(ticker: str):
         
         
         buying_power = 50000.00
-        portfolio_qty = 5
+        portfolio_qty = 0
         portfolio_value = 1000000.00
         mongo_client = MongoClient(MONGODB_URL)
         for strategy in strategies:

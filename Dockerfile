@@ -7,14 +7,14 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
-RUN apt-get update && apt-get install -y build-essential wget
-RUN tar -xvf ta-lib-0.4.0-src.tar.gz
-RUN cd ta-lib
-RUN make
-RUN make install
-RUN pip install --no-cache-dir TA-Lib
+RUN apt-get update && apt-get install -y build-essential wget && \
+    tar -xvf ta-lib-0.4.0-src.tar.gz && \
+    cd ta-lib && \
+    ./configure && \
+    make && \ 
+    make install && \
+    pip install --no-cache-dir TA-Lib
 
-COPY requirements.txt ./
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 # Expose port 10000 for the application

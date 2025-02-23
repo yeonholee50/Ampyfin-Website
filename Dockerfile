@@ -7,6 +7,8 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+ENV LD_LIBRARY_PATH /usr/lib:/usr/local/lib
+
 RUN apt-get update && apt-get install -y build-essential wget && \
     tar -xvf ta-lib-0.4.0-src.tar.gz && \
     cd ta-lib && \
